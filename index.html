@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products</title>
+
+    <!-- fontawesome  -->
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <!-- custom css -->
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .banner {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #sidebar {
+        width: 30%;
+        height: 100vh;
+        background: linear-gradient(150deg, #1f2b3e, #1e293b);
+        border: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: inset -5px 0 20px rgba(0, 0, 0, 0.4);
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+      }
+
+      #sidebar > ul {
+        list-style: none;
+        margin: auto 0;
+      }
+
+      #sidebar > ul li {
+        margin: 20px 0px;
+      }
+
+      #sidebar > ul > li > a {
+        color: #dde7ef;
+        font-size: 20px;
+        text-transform: capitalize;
+        font-weight: 500;
+      }
+      #sidebar > ul li > a:hover {
+        color: #74c0fc;
+        cursor: pointer;
+      }
+
+      #sidebar ul > li a {
+        position: relative;
+        transition: 0.3s;
+      }
+
+      #sidebar ul li a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        width: 0;
+        height: 2px;
+        background: #38bdf8;
+        transition: 0.4s;
+      }
+
+      #sidebar ul li a:hover::after {
+        width: 100%;
+      }
+
+      #productsarea {
+        width: 100%;
+        height: 100vh;
+        background-color: rgb(238, 235, 232);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        overflow-y: auto;
+        white-space: inherit;
+      }
+
+      /* header */
+      .container {
+        max-width: 1140px;
+        padding: 0px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .container-fluid {
+        width: 100%;
+        height: auto;
+        padding: 10px 10px;
+      }
+
+      .brand-logo {
+        width: 60px;
+        height: 53px;
+      }
+      .brand-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      .form {
+        --timing: 0.3s;
+        --width-of-input: 250px;
+        --height-of-input: 35px;
+        --border-height: 2px;
+        --input-bg: #ffffffed;
+        --border-color: #2f2ee9;
+        --border-radius: 30px;
+        --after-border-radius: 1px;
+        position: relative;
+        width: var(--width-of-input);
+        height: var(--height-of-input);
+        display: flex;
+        align-items: center;
+        padding-inline: 0.8em;
+        border-radius: var(--border-radius);
+        transition: border-radius 0.5s ease;
+        background: var(--input-bg, #fff);
+      }
+
+      .input {
+        font-size: 0.8rem;
+        background-color: transparent;
+        width: 100%;
+        height: 100%;
+        padding-inline: 0.5em;
+        padding-block: 0.7em;
+        border: none;
+      }
+
+      .form:before {
+        content: "";
+        position: absolute;
+        background: var(--border-color);
+        transform: scaleX(0);
+        transform-origin: center;
+        width: 100%;
+        height: var(--border-height);
+        left: 0;
+        bottom: 0;
+        border-radius: 1px;
+        transition: transform var(--timing) ease;
+      }
+
+      .form:focus-within {
+        border-radius: var(--after-border-radius);
+      }
+
+      input:focus {
+        outline: none;
+      }
+
+      .form:focus-within:before {
+        transform: scale(1);
+      }
+
+      #sortitems {
+        display: flex;
+        gap: 12px;
+      }
+      .sortingBtn {
+        font-size: 16px;
+        color: #e1e1e1;
+        font-family: inherit;
+        font-weight: 500;
+        cursor: pointer;
+        position: relative;
+        border: none;
+        background: none;
+        text-transform: uppercase;
+        transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition-duration: 400ms;
+        transition-property: color;
+      }
+
+      .sortingBtn:focus,
+      .sortingBtn:hover {
+        color: #fff;
+      }
+
+      .sortingBtn:focus:after,
+      .sortingBtn:hover:after {
+        width: 100%;
+        left: 0%;
+      }
+
+      .sortingBtn:after {
+        content: "";
+        pointer-events: none;
+        bottom: -2px;
+        left: 50%;
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        background-color: #2e6ff0;
+        transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition-duration: 400ms;
+        transition-property: width, left;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        width: 100%;
+        height: 100vh;
+      }
+
+      .modal-content {
+        background-color: rgba(224, 221, 221, 0.799);
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 10px;
+        width: 100%;
+        height: 100%;
+        text-align: start;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .close {
+        color: red;
+        float: right;
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      button {
+        --primary-color: #645bff;
+        --secondary-color: #fff;
+        --hover-color: #111;
+        --arrow-width: 10px;
+        --arrow-stroke: 2px;
+        box-sizing: border-box;
+        border: 0;
+        border-radius: 15px;
+        color: var(--secondary-color);
+        padding: 10px 15px;
+        background: var(--primary-color);
+        display: flex;
+        transition: 0.1s background ease-in;
+        align-items: center;
+        gap: 0.6em;
+        font-weight: bold;
+        display: inline;
+      }
+
+      button:hover {
+        background-color: var(--hover-color);
+      }
+
+      button:hover {
+        right: 0;
+      }
+
+      /* body {
+        background: linear-gradient(135deg, #0f172a, #020617);
+      } */
+
+      .container-fluid {
+        background-image: url(assets/images/backgroundimg.jpg);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+      }
+
+      #productsarea {
+        background-image: url(assets/images/backgroundimg.jpg);
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        padding: 15px;
+      }
+
+      #productsarea > div {
+        transition: 0.3s;
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+        background: #eae9e9;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+      }
+
+      #productsarea > div:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+      }
+
+      #productsarea img {
+        transition: 0.4s;
+      }
+
+      #productsarea > div:hover img {
+        transform: scale(1.1);
+      }
+
+      button {
+        background: linear-gradient(135deg, #38bdf8, #6366f1);
+        border-radius: 20px;
+        transition: 0.3s;
+        margin: 0px auto;
+      }
+
+      button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(99, 102, 241, 0.6);
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.75);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        z-index: 999;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* ===== MODAL CARD ===== */
+      .modal-content {
+        width: 100%;
+        width: 1200px;
+        height: 600px;
+        background: linear-gradient(145deg, #304352, #d7d2cc);
+        border-radius: 20px;
+        padding: 25px;
+        display: flex;
+        gap: 30px;
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
+        animation: modalPop 0.4s ease;
+        margin-top: auto;
+      }
+
+      .modal-content img {
+        width: 100%;
+        height: 100%;
+        border-radius: 18px;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+
+      .modal-content img:hover {
+        transform: scale(1.05);
+      }
+
+      #modalDetails {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        gap: 12px;
+      }
+
+      #modalDetails h4 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #0f172a;
+      }
+
+      #modalDetails p {
+        font-size: 18px;
+        color: #475569;
+        line-height: 1.6;
+      }
+
+      #detailPrice {
+        font-size: 20px;
+        color: #2563eb;
+        font-weight: 700;
+      }
+
+      /* CLOSE BUTTON */
+      .close {
+        position: absolute;
+        top: 18px;
+        right: 20px;
+        font-size: 30px;
+        color: #ef4444;
+        cursor: pointer;
+        transition: 0.25s;
+      }
+
+      .close:hover {
+        transform: rotate(90deg) scale(1.2);
+      }
+
+      @keyframes modalPop {
+        from {
+          transform: scale(0.85) translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1) translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .modal-content {
+          flex-direction: column;
+        }
+
+        .modal-content > div:first-child {
+          height: 260px;
+        }
+      }
+
+      .productCard {
+        width: 13px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="container-fluid">
+        <div class="container">
+          <div class="brand-logo">
+            <img
+              src="assets/images/brandlogo.png"
+              onclick="fetchProducts(fetchAllData)"
+              alt="cart logo.jpg"
+            />
+          </div>
+          <div>
+            <form class="form">
+              <i
+                class="fa-solid fa-magnifying-glass fa-lg"
+                style="color: #74c0fc"
+              ></i>
+              <input
+                class="input"
+                id="searchfield"
+                placeholder="Search Products..."
+                required=""
+                type="text"
+              />
+            </form>
+          </div>
+
+          <div id="sortitems">
+            <h4
+              class="sortingBtn"
+              onclick="viewAscending()"
+              id="sortbutton-asc"
+            >
+              <a>Ascending</a>
+            </h4>
+            <h4
+              class="sortingBtn"
+              onclick="viewDescending()"
+              id="sortbutton-desc"
+            >
+              <a>Descending</a>
+            </h4>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="banner">
+      <div id="sidebar">
+        <ul>
+          <li>
+            <h2 style="color: #eeeff0; font-size: 30px; font-weight: 500">
+              Categories
+            </h2>
+          </li>
+          <li>
+            <a
+              type="button"
+              onclick="fetchProducts(beautyproductData)"
+              title="Products"
+            >
+              Beauty Products
+            </a>
+          </li>
+          <li>
+            <a
+              type="button"
+              onclick="fetchProducts(fragrancesData)"
+              title="Products"
+            >
+              fragrances
+            </a>
+          </li>
+          <li>
+            <a
+              type="button"
+              onclick="fetchProducts(furnitureData)"
+              title="Products"
+            >
+              furniture
+            </a>
+          </li>
+          <li>
+            <a
+              type="button"
+              onclick="fetchProducts(groceriesData)"
+              title="Products"
+            >
+              groceries
+            </a>
+          </li>
+          <li>
+            <a
+              type="button"
+              id="fetchBtn"
+              onclick="fetchProducts(smartphonesData)"
+              title="Products"
+            >
+              smartphones
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div id="productsarea"></div>
+
+      <!-- modaldetails -->
+      <div id="detailsModal" class="modal">
+        <div
+          class="modal-content"
+          style="display: flex; justify-content: space-evenly"
+        >
+          <span class="close" id="closeModal">&times;</span>
+          <div style="width: 500px; height: 500px">
+            <img
+              style="
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+              "
+              id="productImage"
+              src=""
+              alt=""
+            />
+          </div>
+          <div id="modalDetails">
+            <h4 id="detailName">Product Name:</h4>
+            <h4 id="detailPrice">Product Price:</h4>
+            <p id="productDetails">Details:</p>
+            <p id="productReviews">Product reviews</p>
+            <p id="productWarranty"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- custom js -->
+      <script>
+        const fetchBtn = document.getElementById("fetchBtn");
+        const productsArea = document.getElementById("productsarea");
+        const searchInputField = document.getElementById("searchfield");
+        const modal = document.getElementById("detailsModal");
+        const closeModal = document.getElementById("closeModal");
+        const modalBtn = document.getElementById("modalview");
+        const viewDetailsBtn = document.getElementById("viewdetailsBtn");
+        var searchArr = [];
+
+        //API urls
+        const fetchAllData = "https://dummyjson.com/products";
+        const beautyproductData =
+          "https://dummyjson.com/products/category/beauty";
+        const fragrancesData =
+          "https://dummyjson.com/products/category/fragrances";
+        const furnitureData =
+          "https://dummyjson.com/products/category/furniture";
+        const groceriesData =
+          "https://dummyjson.com/products/category/groceries";
+        const smartphonesData =
+          "https://dummyjson.com/products/category/smartphones";
+
+        window.addEventListener(
+          "DOMContentLoaded",
+          fetchProducts("https://dummyjson.com/products")
+        );
+
+        //data fetch through API using async function
+        async function fetchProducts(URL) {
+          try {
+            let response = await fetch(URL);
+            if (!response.ok) {
+              throw new Error("No data found");
+            }
+            let data = await response.json();
+
+            searchArr = { ...data };
+            productsArea.innerHTML = "";
+
+            console.log(searchArr);
+            if (!productsArea.innerHTML) {
+              data.products.forEach((products, index) => {
+                let div = document.createElement("div");
+                div.style.width = "24rem";
+                div.style.minHeight = "400px";
+                div.style.padding = "18px 18px";
+                div.style.textAlign = "center";
+                div.style.display = "flex";
+                div.style.justifyContent = "space-between";
+                div.style.alignItems = "start";
+                div.style.flexDirection = "column";
+                div.style.webkitBoxShadow = "black";
+                div.style.borderRadius = "10px";
+                // div.style.backgroundColor = "white";
+                div.style.margin = "10px";
+                div.style.position = "relative";
+                div.innerHTML = `
+                <div style="width: 160px; height: 180px; margin: 0px auto; class="productCard" ">
+          <img src="${products.images[0]}" style="width: 100%; height: 100%; object-fit: cover;" alt="products image"></img>
+          </div>
+          <h4 style="text-align: start; font-weight: 500;">Category- ${products.category}</h4>
+          <h4 style="text-align: start; font-weight: 500;">Product- ${products.title}</h4>
+          <h4 style="text-align: start; font-weight: 500;">Brand-  ${products.brand}</h4>
+          <h4 style="text-align: start;">$${products.price}</h4>
+          <h5 style="text-align: start; font-size: 16px; font-weight: 600; color: red;">${products.availabilityStatus}</h5>
+          
+          <button id="viewdetailsBtn" onclick="viewModal(${index})">View Details</button>`;
+                productsArea.appendChild(div);
+              });
+            }
+          } catch (error) {
+            productsArea.innerHTML = `<h1 style="color: red; font-weight: 600;">Error No Data Found</h1>`;
+          }
+        }
+
+        //Search Product
+        searchInputField.addEventListener("input", (e) => {
+          const query = e.target.value.toLowerCase();
+
+          const filtered = searchArr.products.filter(
+            (p) =>
+              p.title.toLowerCase().includes(query) ||
+              p.category.toLowerCase().includes(query)
+          );
+          productsArea.innerHTML = "";
+          displayFilteredProduct(filtered);
+        });
+
+        //Display searched function
+        function displayFilteredProduct(arr) {
+          if (arr.length != 0) {
+            arr.forEach((products, index) => {
+              let div = document.createElement("div");
+              div.style.width = "24rem";
+              div.style.minHeight = "400px";
+              div.style.padding = "18px 18px";
+              div.style.textAlign = "center";
+              div.style.display = "flex";
+              div.style.justifyContent = "space-between";
+              div.style.alignItems = "start";
+              div.style.flexDirection = "column";
+              div.style.webkitBoxShadow = "black";
+              div.style.borderRadius = "10px";
+              div.style.margin = "10px";
+              div.style.position = "relative";
+              div.innerHTML = `
+              <div style="width: 160px; height: 180px; margin: 0px auto; class="productCard" ">
+          <img src="${products.images[0]}" style="width: 100%; height: 100%; object-fit: cover;" alt="products image"></img>
+          </div>
+          <h4 style="text-align: start; font-weight: 500;">Category- ${products.category}</h4>
+          <h4 style="text-align: start; font-weight: 500;">Product- ${products.title}</h4>
+          <h4 style="text-align: start; font-weight: 500;">Brand-  ${products.brand}</h4>
+          <h4 style="text-align: start;">$${products.price}</h4>
+          <h5 style="text-align: start; font-size: 16px; font-weight: 600; color: red;">${products.availabilityStatus}</h5>
+          
+          <button type="button" onclick="viewModal(${index})" >View Details</button>`;
+              productsArea.appendChild(div);
+            });
+          } else {
+            productsArea.innerHTML = `<h1 style="color: red;">No similar Data Found</h1>`;
+          }
+        }
+
+        //sort products base on price
+        function viewAscending() {
+          let sortedproducts = [...searchArr.products];
+          sortedproducts.sort((a, b) => a.price - b.price);
+          productsArea.innerHTML = "";
+          displayFilteredProduct(sortedproducts);
+        }
+
+        function viewDescending() {
+          let sortedproducts = [...searchArr.products];
+          sortedproducts.sort((a, b) => b.price - a.price);
+          productsArea.innerHTML = "";
+          displayFilteredProduct(sortedproducts);
+        }
+
+        //view Modal
+        function viewModal(id) {
+          const product = searchArr.products[id];
+          document.getElementById("productImage").src = product.images[0];
+          document.getElementById(
+            "detailName"
+          ).textContent = `Product: ${product.title}`;
+          document.getElementById("detailPrice").textContent = `Price: $${
+            product.price
+          } upto ${Math.round(product.discountPercentage)}% off`;
+          document.getElementById(
+            "productDetails"
+          ).textContent = `Product Description: $${product.description}`;
+          document.getElementById(
+            "productWarranty"
+          ).textContent = `${product.returnPolicy} with ${product.warrantyInformation}`;
+
+          modal.style.display = "block";
+        }
+
+        // Close modal
+        closeModal.addEventListener("click", () => {
+          modal.style.display = "none";
+        });
+
+        // Close modal on outside click
+        window.onclick = (event) => {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        };
+        
+      </script>
+    </div>
+  </body>
+</html>
